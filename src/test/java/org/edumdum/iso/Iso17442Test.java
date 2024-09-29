@@ -5,7 +5,7 @@ import static org.junit.Assert.fail;
 import java.util.HashMap;
 import java.util.function.Function;
 
-import org.edumdum.iso.Iso7064;
+import org.edumdum.iso.exception.BadKeyRangeException;
 import org.junit.Test;
 
 public class Iso17442Test
@@ -19,6 +19,8 @@ public class Iso17442Test
 		EXCEPTION_ISVALID.put("0123456", new ExceptionDefinition(IllegalArgumentException.class, String.format(EXCEPTION_TEMPLATE_ISVALID, "0123456")));
         EXCEPTION_ISVALID.put("969500T3MBS4SQAMHJ4A", new ExceptionDefinition(IllegalArgumentException.class, String.format(EXCEPTION_TEMPLATE_ISVALID, "969500T3MBS4SQAMHJ4A")));
         EXCEPTION_ISVALID.put("969500T3MBS4SQAMHJ455", new ExceptionDefinition(IllegalArgumentException.class, String.format(EXCEPTION_TEMPLATE_ISVALID, "969500T3MBS4SQAMHJ455")));
+        EXCEPTION_ISVALID.put("315700BBRQHDWX6SHZ00", new ExceptionDefinition(BadKeyRangeException.class, null));
+        EXCEPTION_ISVALID.put("00000000000000000001", new ExceptionDefinition(BadKeyRangeException.class, null));
 	}
 
 	private static final HashMap<String, Boolean> DATA_ISVALID = new HashMap<String, Boolean>();
@@ -34,6 +36,8 @@ public class Iso17442Test
         DATA_ISVALID.put("7245005WBNJAFHBD0S30", true);
         DATA_ISVALID.put("724500VKKSH9QOLTFR81", true);
         DATA_ISVALID.put("724500884QS64MG71N64", true);
+        DATA_ISVALID.put("315700BBRQHDWX6SHZ97", true);
+        DATA_ISVALID.put("00000000000000000098", true);
 	}
 
 	private static final String EXCEPTION_TEMPLATE_GENERATE = "Invalid data format; expecting '^[0-9A-Z]{18}$', found: '%s'.";	
