@@ -19,8 +19,15 @@ public class Iso17442Test
 		EXCEPTION_ISVALID.put("0123456", new ExceptionDefinition(IllegalArgumentException.class, String.format(EXCEPTION_TEMPLATE_ISVALID, "0123456")));
         EXCEPTION_ISVALID.put("969500T3MBS4SQAMHJ4A", new ExceptionDefinition(IllegalArgumentException.class, String.format(EXCEPTION_TEMPLATE_ISVALID, "969500T3MBS4SQAMHJ4A")));
         EXCEPTION_ISVALID.put("969500T3MBS4SQAMHJ455", new ExceptionDefinition(IllegalArgumentException.class, String.format(EXCEPTION_TEMPLATE_ISVALID, "969500T3MBS4SQAMHJ455")));
+
+//      with 65 as remainder
         EXCEPTION_ISVALID.put("315700BBRQHDWX6SHZ00", new ExceptionDefinition(BadKeyRangeException.class, null));
+        EXCEPTION_ISVALID.put("00000000000000006500", new ExceptionDefinition(BadKeyRangeException.class, null));
+        EXCEPTION_ISVALID.put("00000000000000016200", new ExceptionDefinition(BadKeyRangeException.class, null));
+//      multiple of 97
         EXCEPTION_ISVALID.put("00000000000000000001", new ExceptionDefinition(BadKeyRangeException.class, null));
+        EXCEPTION_ISVALID.put("00000000000000009701", new ExceptionDefinition(BadKeyRangeException.class, null));
+        EXCEPTION_ISVALID.put("00000000000000019401", new ExceptionDefinition(BadKeyRangeException.class, null));
 	}
 
 	private static final HashMap<String, Boolean> DATA_ISVALID = new HashMap<String, Boolean>();
