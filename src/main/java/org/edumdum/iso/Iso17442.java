@@ -1,11 +1,13 @@
 package org.edumdum.iso;
 
-import org.edumdum.iso.Iso7064;
+import java.util.regex.Pattern;
 
 public class Iso17442
 {
     private static final String FORMAT_ISVALID = "^[0-9A-Z]{18}[0-9]{2}$";
     private static final String FORMAT_GENERATE = "^[0-9A-Z]{18}$";
+    private static final Pattern PATTERN_ISVALID = Pattern.compile(FORMAT_ISVALID);
+    private static final Pattern PATTERN_GENERATE = Pattern.compile(FORMAT_GENERATE);
 
 	/**
 	 * Check requirements.
@@ -19,9 +21,14 @@ public class Iso17442
 	public static boolean isValid(String rawValue)
 		throws IllegalArgumentException
 	{                
-		if (rawValue == null || !rawValue.matches(FORMAT_ISVALID))
+		if (rawValue == null || !PATTERN_ISVALID.matcher(rawValue).matches())
 		{
 			throw new IllegalArgumentException(String.format("Invalid data format; expecting '%s', found: '%s'.", FORMAT_ISVALID, rawValue));
+		}
+		int n = Integer.parseInt(rawValue.substring(18, 20));
+		if (!(2 <= n && n <= 98))
+		{
+			return false;
 		}
 
 		return Iso7064.computeWithoutCheck(rawValue) == 1;
@@ -39,7 +46,7 @@ public class Iso17442
     public static String generate(String rawValue)
         throws IllegalArgumentException
     {                
-        if (rawValue == null || !rawValue.matches(FORMAT_GENERATE))
+        if (rawValue == null || !PATTERN_GENERATE.matcher(rawValue).matches())
         {
             throw new IllegalArgumentException(String.format("Invalid data format; expecting '%s', found: '%s'.", FORMAT_GENERATE, rawValue));
         }

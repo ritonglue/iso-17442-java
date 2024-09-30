@@ -5,7 +5,6 @@ import static org.junit.Assert.fail;
 import java.util.HashMap;
 import java.util.function.Function;
 
-import org.edumdum.iso.Iso7064;
 import org.junit.Test;
 
 public class Iso17442Test
@@ -34,6 +33,17 @@ public class Iso17442Test
         DATA_ISVALID.put("7245005WBNJAFHBD0S30", true);
         DATA_ISVALID.put("724500VKKSH9QOLTFR81", true);
         DATA_ISVALID.put("724500884QS64MG71N64", true);
+        DATA_ISVALID.put("315700BBRQHDWX6SHZ97", true);
+        DATA_ISVALID.put("00000000000000000098", true);
+
+//      with 65 as remainder
+        DATA_ISVALID.put("315700BBRQHDWX6SHZ00", false);
+        DATA_ISVALID.put("00000000000000006500", false);
+        DATA_ISVALID.put("00000000000000016200", false);
+//      multiple of 97
+        DATA_ISVALID.put("00000000000000000001", false);
+        DATA_ISVALID.put("00000000000000009701", false);
+        DATA_ISVALID.put("00000000000000019401", false);
 	}
 
 	private static final String EXCEPTION_TEMPLATE_GENERATE = "Invalid data format; expecting '^[0-9A-Z]{18}$', found: '%s'.";	
